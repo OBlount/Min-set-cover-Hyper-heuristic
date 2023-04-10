@@ -5,18 +5,18 @@ import java.util.Vector;
 
 public class InstanceReader
 {
-    private final File mFile;
+    private final File file;
 
     InstanceReader(String fileName)
     {
-        this.mFile = new File("./src/resources/" + fileName + ".txt");
+        this.file = new File("./src/resources/" + fileName + ".txt");
     }
 
     private String getHeaders()
     {
         try
         {
-            Scanner scanner = new Scanner(this.mFile);
+            Scanner scanner = new Scanner(this.file);
             String headers = scanner.nextLine();
             scanner.close();
             return headers;
@@ -46,7 +46,7 @@ public class InstanceReader
         try
         {
             int lineNumber = 0;
-            Scanner scanner = new Scanner(this.mFile);
+            Scanner scanner = new Scanner(this.file);
             // Skip headers:
             scanner.nextLine();
             // Skip blocks until cursor is at the start of the desired block:

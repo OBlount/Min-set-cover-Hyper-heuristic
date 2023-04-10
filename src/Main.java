@@ -7,7 +7,7 @@ public class Main
         boolean terminationCriteria = true;
         while(terminationCriteria)
         {
-            RandomBitFlip randomBitFlip = new RandomBitFlip(d1.rnd);
+            RandomBitFlipHeuristic randomBitFlip = new RandomBitFlipHeuristic(d1.rnd);
             randomBitFlip.ApplyHeuristic(d1);
             terminationCriteria = false;
         }

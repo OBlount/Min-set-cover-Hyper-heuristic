@@ -1,8 +1,8 @@
 import java.util.Random;
 
-public class RandomBitFlip extends GenericHeuristic
+public class RandomBitFlipHeuristic extends GenericHeuristic
 {
-    RandomBitFlip(Random random)
+    RandomBitFlipHeuristic(Random random)
     {
         super(random);
     }

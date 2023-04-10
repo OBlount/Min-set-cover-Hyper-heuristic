@@ -8,6 +8,7 @@ public abstract class GenericHeuristic
     {
         this.rnd = randomNumberGenerator;
     }
+
     public abstract void ApplyHeuristic(Instance problem);
     public abstract String GetHeuristicName();
 }
