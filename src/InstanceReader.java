@@ -12,6 +12,11 @@ public class InstanceReader
         this.file = new File("./src/resources/" + fileName + ".txt");
     }
 
+    /**
+     * Gets the first line in the formatted data txt file. It scans the first line, and will exit the program if the
+     * file doesn't exist.
+     * @return The first line as a string.
+     */
     private String getHeaders()
     {
         try
@@ -29,18 +34,33 @@ public class InstanceReader
         }
     }
 
+    /**
+     * Parses the first number in the header (first line of the file).
+     * @return The first number as an int.
+     */
     public int GetHeadersM()
     {
         String[] header = getHeaders().split(" ");
         return Integer.parseInt(header[1]);
     }
 
+    /**
+     * Parses the second number in the header (first line of the file).
+     * @return The second number as an int.
+     */
     public int GetHeadersN()
     {
         String[] header = getHeaders().split(" ");
         return Integer.parseInt(header[2]);
     }
 
+    /**
+     * Gets the desited "block" of data. The txt file is formatted such that each "subset" of the MIN-SET-COVER problem
+     * is in "blocks". This function, given an index, will find and return that block. Will exit the program if the file
+     * cannot be opened.
+     * @param indexBlock The number correlating to the block.
+     * @return A vector of integers present within that subset/block.
+     */
     public Vector<Integer> GetSubsetBlock(int indexBlock)
     {
         try
