@@ -2,7 +2,7 @@ import java.util.Random;
 
 public abstract class GenericHeuristic
 {
-    Random rnd;
+    final Random rnd;
 
     GenericHeuristic(Random randomNumberGenerator)
     {

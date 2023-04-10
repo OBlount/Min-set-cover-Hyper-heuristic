@@ -1,5 +1,6 @@
 import java.util.Vector;
 
+@SuppressWarnings("unused")
 public interface IInstance
 {
     String GetName();
@@ -8,5 +9,6 @@ public interface IInstance
     String GetCurrentSolutionAsString();
     int GetNumberOfVariables();
     void BitFlip(int index);
-    void CreateRandomSolution();
+    void CreateSolution();
+    int GetObjectiveValue();
 }
