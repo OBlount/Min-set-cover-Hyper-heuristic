@@ -1,3 +1,7 @@
+package heuristics;
+
+import problemInstance.Instance;
+
 import java.util.Random;
 
 public abstract class GenericHeuristic

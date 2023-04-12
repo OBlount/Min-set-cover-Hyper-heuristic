@@ -1,8 +1,12 @@
+package heuristics;
+
+import problemInstance.Instance;
+
 import java.util.Random;
 
 public class RandomBitFlipHeuristic extends GenericHeuristic
 {
-    RandomBitFlipHeuristic(Random random, double iom)
+    public RandomBitFlipHeuristic(Random random, double iom)
     {
         super(random, iom, 0.0);
     }

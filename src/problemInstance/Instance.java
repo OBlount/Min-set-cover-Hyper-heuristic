@@ -1,3 +1,9 @@
+package problemInstance;
+
+import heuristics.GenericHeuristic;
+import heuristics.RandomBitFlipHeuristic;
+import heuristics.RandomInitialisationHeuristic;
+
 import java.util.*;
 
 public class Instance implements IInstance
@@ -11,7 +17,7 @@ public class Instance implements IInstance
     private final GenericHeuristic initialisationHeuristic;
     private final GenericHeuristic currentMovementOperator;
 
-    Instance(String name, long seed, double iom, double dos)
+    public Instance(String name, long seed, double iom, double dos)
     {
         this.rnd = new Random(seed);
         this.instanceName = name;

@@ -1,3 +1,5 @@
+package problemInstance;
+
 import java.util.Vector;
 
 @SuppressWarnings("unused")

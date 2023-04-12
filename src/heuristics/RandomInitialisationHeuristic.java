@@ -1,8 +1,12 @@
+package heuristics;
+
+import problemInstance.Instance;
+
 import java.util.Random;
 
 public class RandomInitialisationHeuristic extends GenericHeuristic
 {
-    RandomInitialisationHeuristic(Random randomNumberGenerator)
+    public RandomInitialisationHeuristic(Random randomNumberGenerator)
     {
         super(randomNumberGenerator);
     }
