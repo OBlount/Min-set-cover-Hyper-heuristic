@@ -11,4 +11,5 @@ public interface IInstance
     void BitFlip(int index);
     void CreateSolution();
     int GetObjectiveValue();
+    void ApplyMovementOperator();
 }

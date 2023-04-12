@@ -9,9 +9,9 @@ public class Instance implements IInstance
     private final Vector<Vector<Integer>> listOfSubsets;
     private final boolean[] currentSolution;
     private final GenericHeuristic initialisationHeuristic;
+    private final GenericHeuristic currentMovementOperator;
 
-    @SuppressWarnings("SameParameterValue")
-    Instance(String name, long seed)
+    Instance(String name, long seed, double iom, double dos)
     {
         this.rnd = new Random(seed);
         this.instanceName = name;
@@ -22,6 +22,7 @@ public class Instance implements IInstance
         populateListOfSubsets(reader);
         this.currentSolution = new boolean[this.m];
         this.initialisationHeuristic = new RandomInitialisationHeuristic(this.rnd);
+        this.currentMovementOperator = new RandomBitFlipHeuristic(this.rnd, iom);
     }
 
     private void populateListOfSubsets(InstanceReader reader)
@@ -87,8 +88,9 @@ public class Instance implements IInstance
 
     /**
      * This is a minimisation optimisation objective function which evaluates the current encoded solution. If the
-     * solution is infeasible, it will return the max amount of subsets + 1 + how many subsets it covers. Returning a
-     * value close to 0 suggests that the solution is at its local optima.
+     * solution is infeasible, it will return the max amount of subsets + 1 + how many subsets it covers (A infeasible
+     * solution that covers many subsets gets an inferior score). Returning a value close to 0 suggests that the
+     * solution is at its local optima.
      * @return The number of subsets it "uses" as its solution.
      */
     public int GetObjectiveValue()
@@ -99,5 +101,10 @@ public class Instance implements IInstance
             return this.m + 1 + counter;
         else
             return counter;
+    }
+
+    public void ApplyMovementOperator()
+    {
+        this.currentMovementOperator.ApplyHeuristic(this);
     }
 }

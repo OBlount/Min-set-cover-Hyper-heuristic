@@ -2,16 +2,19 @@ import java.util.Random;
 
 public class RandomBitFlipHeuristic extends GenericHeuristic
 {
-    RandomBitFlipHeuristic(Random random)
+    RandomBitFlipHeuristic(Random random, double iom)
     {
-        super(random);
+        super(random, iom, 0.0);
     }
 
     @Override
     public void ApplyHeuristic(Instance problem)
     {
-        int index = rnd.nextInt(problem.GetNumberOfVariables());
-        problem.BitFlip(index);
+        for(int i = 0; i < this.IOM; ++i)
+        {
+            int index = rnd.nextInt(problem.GetNumberOfVariables());
+            problem.BitFlip(index);
+        }
     }
 
     @Override
