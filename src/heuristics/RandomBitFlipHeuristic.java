@@ -24,6 +24,6 @@ public class RandomBitFlipHeuristic extends GenericHeuristic
     @Override
     public String GetHeuristicName()
     {
-        return "Random Bit Flip Heuristic";
+        return "Random Bit Flip";
     }
 }

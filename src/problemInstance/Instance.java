@@ -1,8 +1,6 @@
 package problemInstance;
 
-import heuristics.GenericHeuristic;
-import heuristics.RandomBitFlipHeuristic;
-import heuristics.RandomInitialisationHeuristic;
+import heuristics.*;
 
 import java.util.*;
 
@@ -28,7 +26,8 @@ public class Instance implements IInstance
         populateListOfSubsets(reader);
         this.currentSolution = new boolean[this.m];
         this.initialisationHeuristic = new RandomInitialisationHeuristic(this.rnd);
-        this.currentMovementOperator = new RandomBitFlipHeuristic(this.rnd, iom);
+        // TODO: Random initial movement operator
+        this.currentMovementOperator = new DavisBitHillClimbHeuristic(this.rnd);
     }
 
     private void populateListOfSubsets(InstanceReader reader)
@@ -78,7 +77,7 @@ public class Instance implements IInstance
      * Given a boolean encoded string where 1 = "the subset is used" and 0 = "the subset is not used", the function will
      * return true if the solution is "feasible" - meaning it passes off as a correct solution containing all values
      * present in the universe <i>n</i>.
-     * @param solution The boolean array encoded current solution.
+     * @param solution The boolean array encoded solution.
      * @return True if the solution is feasible.
      */
     private boolean isSolutionFeasible(boolean[] solution)
@@ -93,17 +92,18 @@ public class Instance implements IInstance
     }
 
     /**
-     * This is a minimisation optimisation objective function which evaluates the current encoded solution. If the
+     * This is a minimisation optimisation objective function which evaluates an encoded solution. If the
      * solution is infeasible, it will return the max amount of subsets + 1 + how many subsets it covers (A infeasible
      * solution that covers many subsets gets an inferior score). Returning a value close to 0 suggests that the
      * solution is at its local optima.
+     * @param solution The boolean array encoded solution.
      * @return The number of subsets it "uses" as its solution.
      */
-    public int GetObjectiveValue()
+    public int GetObjectiveValue(boolean[] solution)
     {
         int counter = 0;
-        for(boolean set : this.currentSolution) if(set) counter++;
-        if(!isSolutionFeasible(this.currentSolution))
+        for(boolean set : solution) if(set) counter++;
+        if(!isSolutionFeasible(solution))
             return this.m + 1 + counter;
         else
             return counter;
@@ -112,5 +112,10 @@ public class Instance implements IInstance
     public void ApplyMovementOperator()
     {
         this.currentMovementOperator.ApplyHeuristic(this);
+    }
+
+    public boolean[] GetCurrentSolution()
+    {
+        return this.currentSolution;
     }
 }

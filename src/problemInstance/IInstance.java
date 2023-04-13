@@ -2,7 +2,6 @@ package problemInstance;
 
 import java.util.Vector;
 
-@SuppressWarnings("unused")
 public interface IInstance
 {
     String GetName();
@@ -12,6 +11,7 @@ public interface IInstance
     int GetNumberOfVariables();
     void BitFlip(int index);
     void CreateSolution();
-    int GetObjectiveValue();
+    int GetObjectiveValue(boolean[] solution);
     void ApplyMovementOperator();
+    boolean[] GetCurrentSolution();
 }
