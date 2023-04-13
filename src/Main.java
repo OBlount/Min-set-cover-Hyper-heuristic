@@ -4,7 +4,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        long runningTime = 5L;
+        long runningTime = 2L;
         Instance d1 = new Instance("d1_50_500", 24042023, 0.5, 0.5);
         runInstance(d1, runningTime);
     }
