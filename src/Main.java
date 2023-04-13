@@ -1,12 +1,18 @@
 import problemInstance.Instance;
+import problemInstance.InstanceConfig;
 
 public class Main
 {
     public static void main(String[] args)
     {
-        long runningTime = 2L;
-        Instance d1 = new Instance("d1_50_500", 24042023, 0.5, 0.5);
-        runInstance(d1, runningTime);
+        Instance instance = new Instance(
+                InstanceConfig.INSTANCE_FILE_NAME,
+                InstanceConfig.SEED,
+                InstanceConfig.IOM,
+                InstanceConfig.DOS,
+                InstanceConfig.LOWER_BOUND,
+                InstanceConfig.UPPER_BOUND);
+        runInstance(instance, InstanceConfig.RUN_TIME_IN_SECONDS);
     }
 
     private static void runInstance(Instance instance, long timeToRun)

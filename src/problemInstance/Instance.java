@@ -1,6 +1,8 @@
 package problemInstance;
 
-import heuristics.*;
+import heuristics.FitnessProportionateSelectionHeuristic;
+import heuristics.GenericHeuristic;
+import heuristics.RandomInitialisationHeuristic;
 
 import java.util.*;
 
@@ -14,9 +16,10 @@ public class Instance implements IInstance
     private final boolean[] currentSolution;
     private final boolean[] backupSolution;
     private final GenericHeuristic initialisationHeuristic;
-    private final GenericHeuristic currentMovementOperator;
+    private final FitnessProportionateSelectionHeuristic rouletteWheelSelection;
+    private GenericHeuristic currentlySelectedHeuristic;
 
-    public Instance(String name, long seed, double iom, double dos)
+    public Instance(String name, long seed, double iom, double dos, int lowerScore, int upperScore)
     {
         this.rnd = new Random(seed);
         this.instanceName = name;
@@ -28,9 +31,10 @@ public class Instance implements IInstance
         this.currentSolution = new boolean[this.m];
         this.backupSolution = new boolean[this.m];
         this.initialisationHeuristic = new RandomInitialisationHeuristic(this.rnd);
-        this.initialisationHeuristic.ApplyHeuristic(this);
-        // TODO: Random initial movement operator
-        this.currentMovementOperator = new IteratedLocalSearchHeuristic(this.rnd, iom, dos);
+        CreateSolution();
+        this.rouletteWheelSelection =
+                new FitnessProportionateSelectionHeuristic(this.rnd, lowerScore, upperScore, iom, dos);
+        this.rouletteWheelSelection.ApplyHeuristic(this);
     }
 
     private void populateListOfSubsets(InstanceReader reader)
@@ -112,7 +116,8 @@ public class Instance implements IInstance
 
     public void ApplyMovementOperator()
     {
-        this.currentMovementOperator.ApplyHeuristic(this);
+        this.rouletteWheelSelection.ApplyHeuristic(this);
+        this.currentlySelectedHeuristic.ApplyHeuristic(this);
     }
 
     public boolean[] GetCurrentSolution()
@@ -134,5 +139,10 @@ public class Instance implements IInstance
     public boolean[] GetBackupSolution()
     {
         return this.backupSolution;
+    }
+
+    public void SetCurrentlySelectedHeuristic(GenericHeuristic heuristic)
+    {
+        this.currentlySelectedHeuristic = heuristic;
     }
 }

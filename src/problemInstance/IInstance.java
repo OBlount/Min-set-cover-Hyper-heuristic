@@ -1,5 +1,7 @@
 package problemInstance;
 
+import heuristics.GenericHeuristic;
+
 import java.util.Vector;
 
 public interface IInstance
@@ -17,4 +19,5 @@ public interface IInstance
     void RevertCurrentSolution();
     void BackupSolution(boolean[] solution);
     boolean[] GetBackupSolution();
+    void SetCurrentlySelectedHeuristic(GenericHeuristic heuristic);
 }
