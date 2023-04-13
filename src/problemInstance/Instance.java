@@ -12,6 +12,7 @@ public class Instance implements IInstance
     private final int n;
     private final Vector<Vector<Integer>> listOfSubsets;
     private final boolean[] currentSolution;
+    private final boolean[] backupSolution;
     private final GenericHeuristic initialisationHeuristic;
     private final GenericHeuristic currentMovementOperator;
 
@@ -25,9 +26,10 @@ public class Instance implements IInstance
         listOfSubsets = new Vector<>(this.m);
         populateListOfSubsets(reader);
         this.currentSolution = new boolean[this.m];
+        this.backupSolution = new boolean[this.m];
         this.initialisationHeuristic = new RandomInitialisationHeuristic(this.rnd);
         // TODO: Random initial movement operator
-        this.currentMovementOperator = new DavisBitHillClimbHeuristic(this.rnd);
+        this.currentMovementOperator = new IteratedLocalSearchHeuristic(this.rnd, iom, dos);
     }
 
     private void populateListOfSubsets(InstanceReader reader)
@@ -84,10 +86,8 @@ public class Instance implements IInstance
     {
         Set<Integer> union = new HashSet<>(this.n);
         for(int i = 0; i < solution.length; ++i)
-        {
             if(solution[i])
                 union.addAll(this.listOfSubsets.get(i));
-        }
         return union.size() == this.n;
     }
 
@@ -117,5 +117,21 @@ public class Instance implements IInstance
     public boolean[] GetCurrentSolution()
     {
         return this.currentSolution;
+    }
+
+    public void BackupSolution(boolean[] solution)
+    {
+        System.arraycopy(solution, 0, this.backupSolution, 0, solution.length);
+    }
+
+    public void RevertCurrentSolution()
+    {
+        System.arraycopy(this.backupSolution, 0,
+                this.currentSolution, 0, this.backupSolution.length);
+    }
+
+    public boolean[] GetBackupSolution()
+    {
+        return this.backupSolution;
     }
 }

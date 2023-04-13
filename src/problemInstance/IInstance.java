@@ -14,4 +14,7 @@ public interface IInstance
     int GetObjectiveValue(boolean[] solution);
     void ApplyMovementOperator();
     boolean[] GetCurrentSolution();
+    void RevertCurrentSolution();
+    void BackupSolution(boolean[] solution);
+    boolean[] GetBackupSolution();
 }
