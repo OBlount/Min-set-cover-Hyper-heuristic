@@ -12,7 +12,7 @@ public class IteratedLocalSearchHeuristic extends GenericHeuristic
     public IteratedLocalSearchHeuristic(Random randomNumberGenerator, double iom, double dos)
     {
         super(randomNumberGenerator, iom, dos);
-        this.mutatorHeuristic = new RandomBitFlipHeuristic(randomNumberGenerator, iom);
+        this.mutatorHeuristic = new RandomBitFlipHeuristic(randomNumberGenerator, 0.0);
         this.localSearchHeuristic = new DavisBitHillClimbHeuristic(randomNumberGenerator);
     }
 

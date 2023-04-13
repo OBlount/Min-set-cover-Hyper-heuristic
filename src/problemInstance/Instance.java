@@ -93,10 +93,10 @@ public class Instance implements IInstance
     }
 
     /**
-     * This is a minimisation optimisation objective function which evaluates an encoded solution. If the
-     * solution is infeasible, it will return the max amount of subsets + 1 + how many subsets it covers (A infeasible
-     * solution that covers many subsets gets an inferior score). Returning a value close to 0 suggests that the
-     * solution is at its local optima.
+     * This is a minimisation optimisation objective function which evaluates an encoded solution. If the solution is
+     * infeasible, it will return ((total number of subsets + 1) + (number of subsets that aren't covered)). An
+     * infeasible solution that covers little to no subsets gets an inferior score (E.g. 00000... returns the worst
+     * score if infeasible. Returning a value close to 0 suggests that the solution is at its local optima.
      * @param solution The boolean array encoded solution.
      * @return The number of subsets it "uses" as its solution.
      */
@@ -105,7 +105,7 @@ public class Instance implements IInstance
         int counter = 0;
         for(boolean set : solution) if(set) counter++;
         if(!isSolutionFeasible(solution))
-            return this.m + 1 + counter;
+            return (this.m + 1) + (this.m - counter);
         else
             return counter;
     }
