@@ -1,5 +1,6 @@
-package heuristics;
+package heuristics.initialisation;
 
+import heuristics.GenericHeuristic;
 import problemInstance.Instance;
 
 import java.util.Random;

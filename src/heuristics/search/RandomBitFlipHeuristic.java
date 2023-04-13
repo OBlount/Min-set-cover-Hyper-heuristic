@@ -1,5 +1,6 @@
-package heuristics;
+package heuristics.search;
 
+import heuristics.GenericHeuristic;
 import problemInstance.Instance;
 
 import java.util.Random;

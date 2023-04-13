@@ -1,5 +1,8 @@
-package heuristics;
+package heuristics.meta;
 
+import heuristics.GenericHeuristic;
+import heuristics.search.DavisBitHillClimbHeuristic;
+import heuristics.search.RandomBitFlipHeuristic;
 import problemInstance.Instance;
 
 import java.util.Random;

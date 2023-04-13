@@ -1,8 +1,9 @@
 package problemInstance;
 
-import heuristics.FitnessProportionateSelectionHeuristic;
 import heuristics.GenericHeuristic;
-import heuristics.RandomInitialisationHeuristic;
+import heuristics.initialisation.RandomInitialisationHeuristic;
+import heuristics.meta.FitnessProportionateSelectionHeuristic;
+import heuristics.meta.ReinforcementLearningILSHeuristic;
 
 import java.util.*;
 
@@ -18,6 +19,7 @@ public class Instance implements IInstance
     private final GenericHeuristic initialisationHeuristic;
     private final FitnessProportionateSelectionHeuristic rouletteWheelSelection;
     private GenericHeuristic currentlySelectedHeuristic;
+    private final ReinforcementLearningILSHeuristic iteratedLocalSearchHeuristic;
 
     public Instance(String name, long seed, double iom, double dos, int lowerScore, int upperScore)
     {
@@ -35,6 +37,7 @@ public class Instance implements IInstance
         this.rouletteWheelSelection =
                 new FitnessProportionateSelectionHeuristic(this.rnd, lowerScore, upperScore, iom, dos);
         this.rouletteWheelSelection.ApplyHeuristic(this);
+        this.iteratedLocalSearchHeuristic = new ReinforcementLearningILSHeuristic(this.rnd, iom, dos);
     }
 
     private void populateListOfSubsets(InstanceReader reader)
@@ -116,7 +119,6 @@ public class Instance implements IInstance
 
     public void ApplyMovementOperator()
     {
-        this.rouletteWheelSelection.ApplyHeuristic(this);
         this.currentlySelectedHeuristic.ApplyHeuristic(this);
     }
 
@@ -144,5 +146,20 @@ public class Instance implements IInstance
     public void SetCurrentlySelectedHeuristic(GenericHeuristic heuristic)
     {
         this.currentlySelectedHeuristic = heuristic;
+    }
+
+    public FitnessProportionateSelectionHeuristic GetReinforcementLearningHeuristic()
+    {
+        return this.rouletteWheelSelection;
+    }
+
+    public GenericHeuristic GetCurrentSelectedHeuristic()
+    {
+        return this.currentlySelectedHeuristic;
+    }
+
+    public void Solve()
+    {
+        this.iteratedLocalSearchHeuristic.ApplyHeuristic(this);
     }
 }

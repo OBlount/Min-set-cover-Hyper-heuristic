@@ -6,11 +6,11 @@ import java.util.Random;
 
 public abstract class GenericHeuristic
 {
-    final Random rnd;
-    int IOM;
-    int DOS;
+    protected final Random rnd;
+    protected int IOM;
+    protected int DOS;
 
-    GenericHeuristic(Random randomNumberGenerator, double iom, double dos) throws IllegalArgumentException
+    protected GenericHeuristic(Random randomNumberGenerator, double iom, double dos) throws IllegalArgumentException
     {
         this.rnd = randomNumberGenerator;
         if (iom >= 0.0 && iom < 0.2)
@@ -43,7 +43,7 @@ public abstract class GenericHeuristic
             throw new IllegalArgumentException("DOS should be between 0.0 and 1.0");
     }
 
-    GenericHeuristic(Random randomNumberGenerator)
+    protected GenericHeuristic(Random randomNumberGenerator)
     {
         this.rnd = randomNumberGenerator;
     }

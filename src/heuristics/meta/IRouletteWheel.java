@@ -1,4 +1,6 @@
-package heuristics;
+package heuristics.meta;
+
+import heuristics.GenericHeuristic;
 
 public interface IRouletteWheel
 {

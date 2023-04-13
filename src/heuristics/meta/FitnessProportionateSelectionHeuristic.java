@@ -1,5 +1,9 @@
-package heuristics;
+package heuristics.meta;
 
+import heuristics.GenericHeuristic;
+import heuristics.search.DavisBitHillClimbHeuristic;
+import heuristics.search.RandomBitFlipHeuristic;
+import heuristics.search.SteepestDescentHillClimbHeuristic;
 import problemInstance.EHeuristicIDs;
 import problemInstance.Instance;
 import problemInstance.InstanceConfig;
@@ -82,7 +86,7 @@ public class FitnessProportionateSelectionHeuristic extends GenericHeuristic imp
     @Override
     public void DecrementHeuristicScore(GenericHeuristic heuristic)
     {
-        if(this.rouletteWheel.get(heuristic) >= this.lowerBound)
+        if(this.rouletteWheel.get(heuristic) > this.lowerBound)
             this.rouletteWheel.put(heuristic, this.rouletteWheel.get(heuristic) - 1);
     }
 

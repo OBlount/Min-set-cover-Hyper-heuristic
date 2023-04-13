@@ -1,6 +1,7 @@
 package problemInstance;
 
 import heuristics.GenericHeuristic;
+import heuristics.meta.FitnessProportionateSelectionHeuristic;
 
 import java.util.Vector;
 
@@ -20,4 +21,7 @@ public interface IInstance
     void BackupSolution(boolean[] solution);
     boolean[] GetBackupSolution();
     void SetCurrentlySelectedHeuristic(GenericHeuristic heuristic);
+    FitnessProportionateSelectionHeuristic GetReinforcementLearningHeuristic();
+    GenericHeuristic GetCurrentSelectedHeuristic();
+    void Solve();
 }

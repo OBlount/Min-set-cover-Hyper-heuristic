@@ -20,7 +20,7 @@ public class Main
         final long timeBudget = timeToRun * (1000 * 1000 * 1000);
         final long startTime = System.nanoTime();
         while ((System.nanoTime() - startTime) < timeBudget)
-            instance.ApplyMovementOperator();
+            instance.Solve();
 
         System.out.println(instance.GetCurrentSolutionAsString());
         System.out.println(instance.GetObjectiveValue(instance.GetCurrentSolution()));
