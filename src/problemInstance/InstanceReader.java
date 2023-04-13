@@ -78,7 +78,7 @@ public class InstanceReader
                 if(scanner.hasNextLine())
                 {
                     cursor = scanner.nextLine();
-                    if(cursor.length() < 6)
+                    if(cursor.length() < 20)
                         lineNumber++;
                 }
             }

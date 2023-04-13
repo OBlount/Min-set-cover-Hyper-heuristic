@@ -28,6 +28,7 @@ public class Instance implements IInstance
         this.currentSolution = new boolean[this.m];
         this.backupSolution = new boolean[this.m];
         this.initialisationHeuristic = new RandomInitialisationHeuristic(this.rnd);
+        this.initialisationHeuristic.ApplyHeuristic(this);
         // TODO: Random initial movement operator
         this.currentMovementOperator = new IteratedLocalSearchHeuristic(this.rnd, iom, dos);
     }

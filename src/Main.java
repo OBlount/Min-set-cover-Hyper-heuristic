@@ -4,15 +4,19 @@ public class Main
 {
     public static void main(String[] args)
     {
+        long runningTime = 5L;
         Instance d1 = new Instance("d1_50_500", 24042023, 0.5, 0.5);
-        d1.CreateSolution();
+        runInstance(d1, runningTime);
+    }
 
-        final long timeBudget = 30L * (1000 * 1000 * 1000);
+    private static void runInstance(Instance instance, long timeToRun)
+    {
+        final long timeBudget = timeToRun * (1000 * 1000 * 1000);
         final long startTime = System.nanoTime();
         while ((System.nanoTime() - startTime) < timeBudget)
-            d1.ApplyMovementOperator();
+            instance.ApplyMovementOperator();
 
-        System.out.println(d1.GetCurrentSolutionAsString());
-        System.out.println(d1.GetObjectiveValue(d1.GetCurrentSolution()));
+        System.out.println(instance.GetCurrentSolutionAsString());
+        System.out.println(instance.GetObjectiveValue(instance.GetCurrentSolution()));
     }
 }
