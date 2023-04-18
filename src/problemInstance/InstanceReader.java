@@ -57,7 +57,8 @@ public class InstanceReader
     }
 
     /**
-     * Gets the desited "block" of data. The txt file is formatted such that each "subset" of the MIN-SET-COVER problem
+     * TODO: A better way to get the desired block is to actually read the number above each block.
+     * Gets the desired "block" of data. The txt file is formatted such that each "subset" of the MIN-SET-COVER problem
      * is in "blocks". This function, given an index, will find and return that block. Will exit the program if the file
      * cannot be opened.
      * @param indexBlock The number correlating to the block.

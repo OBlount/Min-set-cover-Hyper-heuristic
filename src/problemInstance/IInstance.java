@@ -24,4 +24,5 @@ public interface IInstance
     FitnessProportionateSelectionHeuristic GetReinforcementLearningHeuristic();
     GenericHeuristic GetCurrentSelectedHeuristic();
     void Solve();
+    void SetCurrentSolution(boolean[] solution);
 }

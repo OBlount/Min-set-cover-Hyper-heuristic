@@ -162,4 +162,9 @@ public class Instance implements IInstance
     {
         this.iteratedLocalSearchHeuristic.ApplyHeuristic(this);
     }
+
+    public void SetCurrentSolution(boolean[] solution)
+    {
+        System.arraycopy(solution, 0, this.currentSolution, 0, solution.length);
+    }
 }

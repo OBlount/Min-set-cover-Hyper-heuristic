@@ -16,7 +16,7 @@ public class RandomInitialisationHeuristic extends GenericHeuristic
     public void ApplyHeuristic(Instance problem)
     {
         for(int i = 0; i < problem.GetNumberOfVariables(); ++i)
-            if(rnd.nextBoolean())
+            if(this.rnd.nextBoolean())
                 problem.BitFlip(i);
     }
 

@@ -1,9 +1,7 @@
 package heuristics.meta;
 
 import heuristics.GenericHeuristic;
-import heuristics.search.DavisBitHillClimbHeuristic;
-import heuristics.search.RandomBitFlipHeuristic;
-import heuristics.search.SteepestDescentHillClimbHeuristic;
+import heuristics.search.*;
 import problemInstance.EHeuristicIDs;
 import problemInstance.Instance;
 import problemInstance.InstanceConfig;
@@ -36,6 +34,12 @@ public class FitnessProportionateSelectionHeuristic extends GenericHeuristic imp
                                 this.defaultScore);
                 case DBHC ->
                         this.rouletteWheel.put(new DavisBitHillClimbHeuristic(this.rnd),
+                                this.defaultScore);
+                case ONE_POINT_CROSSOVER ->
+                        this.rouletteWheel.put(new SinglePointCrossover(this.rnd),
+                                this.defaultScore);
+                case UNIFORM_CROSSOVER ->
+                        this.rouletteWheel.put(new UniformCrossover(this.rnd),
                                 this.defaultScore);
             }
         }

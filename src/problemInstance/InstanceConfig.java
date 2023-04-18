@@ -13,5 +13,7 @@ public class InstanceConfig
             EHeuristicIDs.RANDOM_BIT_FLIP,
             EHeuristicIDs.SDHC,
             EHeuristicIDs.DBHC,
+            EHeuristicIDs.ONE_POINT_CROSSOVER,
+            EHeuristicIDs.UNIFORM_CROSSOVER,
     };
 }
