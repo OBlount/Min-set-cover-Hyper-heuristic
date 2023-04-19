@@ -3,11 +3,12 @@ package heuristics.search;
 import heuristics.GenericHeuristic;
 import problemInstance.Instance;
 
+import java.util.Arrays;
 import java.util.Random;
 
-public class UniformCrossover extends GenericHeuristic
+public class SinglePointCrossoverHeuristic extends GenericHeuristic
 {
-    public UniformCrossover(Random random)
+    public SinglePointCrossoverHeuristic(Random random)
     {
         super(random);
     }
@@ -15,17 +16,17 @@ public class UniformCrossover extends GenericHeuristic
     @Override
     public void ApplyHeuristic(Instance problem)
     {
+        problem.BackupSolution(problem.GetCurrentSolution());
         boolean[] parent1 = problem.GetCurrentSolution();
         boolean[] parent2 = this.createRandomFeasibleSolution(problem);
+        // Perform single cut:
+        int randomIndex = this.rnd.nextInt(problem.GetNumberOfVariables());
+        parent1 = Arrays.copyOfRange(parent1, 0, randomIndex);
+        parent2 = Arrays.copyOfRange(parent2, randomIndex, problem.GetNumberOfVariables());
         // Perform crossing:
         boolean[] resultingSolution = new boolean[problem.GetNumberOfVariables()];
-        for(int i = 0; i < resultingSolution.length; ++i)
-        {
-            if(this.rnd.nextBoolean())
-                resultingSolution[i] = parent1[i];
-            else
-                resultingSolution[i] = parent2[i];
-        }
+        System.arraycopy(parent1, 0, resultingSolution, 0, parent1.length);
+        System.arraycopy(parent2, 0, resultingSolution, parent1.length, parent2.length);
         // Strict improvement:
         if(problem.GetObjectiveValue(resultingSolution) < problem.GetObjectiveValue(problem.GetCurrentSolution()))
             problem.SetCurrentSolution(resultingSolution);
@@ -43,6 +44,6 @@ public class UniformCrossover extends GenericHeuristic
     @Override
     public String GetHeuristicName()
     {
-        return "Uniform Crossover";
+        return "1-Point Crossover";
     }
 }

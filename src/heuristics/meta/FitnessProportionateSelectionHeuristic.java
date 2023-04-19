@@ -36,10 +36,10 @@ public class FitnessProportionateSelectionHeuristic extends GenericHeuristic imp
                         this.rouletteWheel.put(new DavisBitHillClimbHeuristic(this.rnd),
                                 this.defaultScore);
                 case ONE_POINT_CROSSOVER ->
-                        this.rouletteWheel.put(new SinglePointCrossover(this.rnd),
+                        this.rouletteWheel.put(new SinglePointCrossoverHeuristic(this.rnd),
                                 this.defaultScore);
                 case UNIFORM_CROSSOVER ->
-                        this.rouletteWheel.put(new UniformCrossover(this.rnd),
+                        this.rouletteWheel.put(new UniformCrossoverHeuristic(this.rnd),
                                 this.defaultScore);
             }
         }
