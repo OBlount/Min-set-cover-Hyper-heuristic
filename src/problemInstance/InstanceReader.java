@@ -57,61 +57,40 @@ public class InstanceReader
     }
 
     /**
-     * TODO: A better way to get the desired block is to actually read the number above each block.
-     * Gets the desired "block" of data. The txt file is formatted such that each "subset" of the MIN-SET-COVER problem
-     * is in "blocks". This function, given an index, will find and return that block. Will exit the program if the file
-     * cannot be opened.
-     * @param indexBlock The number correlating to the block.
-     * @return A vector of integers present within that subset/block.
+     * Reads through the given data file and adds each individual subset into the vector passed in.
+     * @param arrayOfSubsets The array you wish to populate.
      */
-    public Vector<Integer> GetSubsetBlock(int indexBlock)
+    public void PopulateSubsetVector(Vector<Vector<Integer>> arrayOfSubsets)
     {
+        Scanner scanner;
         try
         {
-            int lineNumber = 0;
-            Scanner scanner = new Scanner(this.file);
-            // Skip headers:
-            scanner.nextLine();
-            // Skip blocks until cursor is at the start of the desired block:
-            String cursor = scanner.nextLine();
-            while(lineNumber < indexBlock)
-            {
-                if(scanner.hasNextLine())
-                {
-                    cursor = scanner.nextLine();
-                    if(cursor.length() < 20)
-                        lineNumber++;
-                }
-            }
-            // Allocate the size of the subset to the new vector:
-            int sizeOfSubsetBlock = Integer.parseInt(cursor.split(" ")[1]);
-            Vector<Integer> subsetBlock = new Vector<>(sizeOfSubsetBlock);
-            // Add the desired block to the vector which will be returned:
-            boolean isCursorOutOfBlock = false;
-            while(!isCursorOutOfBlock)
-            {
-                if(scanner.hasNextLine())
-                    cursor = scanner.nextLine();
-                else
-                    isCursorOutOfBlock = true;
-                // Currently any lines less than 6 chars are deemed to be "next block":
-                if(cursor.length() > 6)
-                {
-                    String[] elements = cursor.split(" ");
-                    for(int i = 1; i < elements.length; ++i)
-                        subsetBlock.add(Integer.parseInt(elements[i]));
-                }
-                else
-                    isCursorOutOfBlock = true;
-            }
-            scanner.close();
-            return subsetBlock;
+            scanner = new Scanner(this.file);
         } catch(FileNotFoundException e)
         {
-            System.out.println("[ERROR] - File not found");
-            System.out.println("[EXITING]");
+            System.out.println("[ERROR] - File not found\n\r[EXITING]");
             System.exit(1);
-            return null;
+            return;
         }
+        // Skip headers:
+        scanner.nextLine();
+        int currentNumberOfElementsToRead;
+        while(scanner.hasNextLine())
+        {
+            // Read the line containing the number of elements found on the next subset block:
+            String cursor = scanner.nextLine();
+            currentNumberOfElementsToRead = Integer.parseInt(cursor.split(" ")[1]);
+            Vector<Integer> subsetBlock = new Vector<>(currentNumberOfElementsToRead);
+            // Loop through each number for the next "currentNumberOfElementsToRead" times:
+            for(int i = 0; i < currentNumberOfElementsToRead; ++i)
+            {
+                cursor = scanner.next();
+                subsetBlock.add(Integer.parseInt(cursor));
+            }
+            arrayOfSubsets.add(subsetBlock);
+            if(scanner.hasNextLine())
+                scanner.nextLine();
+        }
+        scanner.close();
     }
 }

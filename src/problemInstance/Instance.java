@@ -34,7 +34,7 @@ public class Instance implements IInstance
         this.m = reader.GetHeadersM();
         this.n = reader.GetHeadersN();
         listOfSubsets = new Vector<>(this.m);
-        populateListOfSubsets(reader);
+        reader.PopulateSubsetVector(this.listOfSubsets);
         this.currentSolution = new boolean[this.m];
         this.backupSolution = new boolean[this.m];
         this.initialisationHeuristic = new RandomInitialisationHeuristic(this.rnd);
@@ -46,12 +46,6 @@ public class Instance implements IInstance
         this.moveAcceptance =
                 new SimulatedAnnealing(this.rnd, GetObjectiveValue(this.currentSolution),
                         cost, alphaDecay);
-    }
-
-    private void populateListOfSubsets(InstanceReader reader)
-    {
-        for(int i = 0; i <= this.m; ++i)
-            this.listOfSubsets.add(i, reader.GetSubsetBlock(i));
     }
 
     public String GetName()
