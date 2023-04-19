@@ -4,6 +4,7 @@ import heuristics.GenericHeuristic;
 import heuristics.initialisation.RandomInitialisationHeuristic;
 import heuristics.meta.FitnessProportionateSelectionHeuristic;
 import heuristics.meta.ReinforcementLearningILSHeuristic;
+import heuristics.meta.SimulatedAnnealing;
 
 import java.util.*;
 
@@ -20,8 +21,12 @@ public class Instance implements IInstance
     private final FitnessProportionateSelectionHeuristic rouletteWheelSelection;
     private GenericHeuristic currentlySelectedHeuristic;
     private final ReinforcementLearningILSHeuristic iteratedLocalSearchHeuristic;
+    private final SimulatedAnnealing moveAcceptance;
 
-    public Instance(String name, long seed, double iom, double dos, int lowerScore, int upperScore)
+    public Instance(String name, long seed,
+                    double iom, double dos,
+                    int lowerScore, int upperScore,
+                    double cost, double alphaDecay)
     {
         this.rnd = new Random(seed);
         this.instanceName = name;
@@ -38,6 +43,9 @@ public class Instance implements IInstance
                 new FitnessProportionateSelectionHeuristic(this.rnd, lowerScore, upperScore, iom, dos);
         this.rouletteWheelSelection.ApplyHeuristic(this);
         this.iteratedLocalSearchHeuristic = new ReinforcementLearningILSHeuristic(this.rnd, iom, dos);
+        this.moveAcceptance =
+                new SimulatedAnnealing(this.rnd, GetObjectiveValue(this.currentSolution),
+                        cost, alphaDecay);
     }
 
     private void populateListOfSubsets(InstanceReader reader)
@@ -166,5 +174,10 @@ public class Instance implements IInstance
     public void SetCurrentSolution(boolean[] solution)
     {
         System.arraycopy(solution, 0, this.currentSolution, 0, solution.length);
+    }
+
+    public SimulatedAnnealing GetMoveAcceptance()
+    {
+        return this.moveAcceptance;
     }
 }

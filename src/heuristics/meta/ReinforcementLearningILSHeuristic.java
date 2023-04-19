@@ -16,12 +16,17 @@ public class ReinforcementLearningILSHeuristic extends GenericHeuristic
     public void ApplyHeuristic(Instance problem)
     {
         problem.BackupSolution(problem.GetCurrentSolution());
+        // Select a local search heuristic and apply to the problem:
         problem.GetReinforcementLearningHeuristic().ApplyHeuristic(problem);
         problem.ApplyMovementOperator();
-        int newSolutionObjectiveValue = problem.GetObjectiveValue(problem.GetCurrentSolution());
+        // Evaluate current and new solution:
         int backupSolutionObjectiveValue = problem.GetObjectiveValue(problem.GetBackupSolution());
-        // Strict improvement (Revert solution from backup if value is worse):
-        if(newSolutionObjectiveValue < backupSolutionObjectiveValue)
+        int newSolutionObjectiveValue = problem.GetObjectiveValue(problem.GetCurrentSolution());
+        // Perform elaborate move acceptance (Revert solution from backup if value is worse):
+        boolean isAccepted = problem.GetMoveAcceptance().PerformElaborateMoveAcceptance(
+                backupSolutionObjectiveValue,
+                newSolutionObjectiveValue);
+        if(isAccepted)
             problem.GetReinforcementLearningHeuristic().IncrementHeuristicScore(problem.GetCurrentSelectedHeuristic());
         else
         {
@@ -33,6 +38,6 @@ public class ReinforcementLearningILSHeuristic extends GenericHeuristic
     @Override
     public String GetHeuristicName()
     {
-        return "Reinforcement Learning Iterated Search";
+        return "Reinforcement Learning Iterated Local Search";
     }
 }

@@ -2,6 +2,7 @@ package problemInstance;
 
 import heuristics.GenericHeuristic;
 import heuristics.meta.FitnessProportionateSelectionHeuristic;
+import heuristics.meta.SimulatedAnnealing;
 
 import java.util.Vector;
 
@@ -25,4 +26,5 @@ public interface IInstance
     GenericHeuristic GetCurrentSelectedHeuristic();
     void Solve();
     void SetCurrentSolution(boolean[] solution);
+    SimulatedAnnealing GetMoveAcceptance();
 }

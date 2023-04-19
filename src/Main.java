@@ -11,7 +11,9 @@ public class Main
                 InstanceConfig.IOM,
                 InstanceConfig.DOS,
                 InstanceConfig.LOWER_BOUND,
-                InstanceConfig.UPPER_BOUND);
+                InstanceConfig.UPPER_BOUND,
+                InstanceConfig.MOVE_ACCEPTANCE_COST,
+                InstanceConfig.MOVE_ACCEPTANCE_ALPHA_DECAY);
         runInstance(instance, InstanceConfig.RUN_TIME_IN_SECONDS);
     }
 
@@ -22,7 +24,7 @@ public class Main
         while ((System.nanoTime() - startTime) < timeBudget)
             instance.Solve();
 
-        System.out.println(instance.GetCurrentSolutionAsString());
-        System.out.println(instance.GetObjectiveValue(instance.GetCurrentSolution()));
+        System.out.println("Best Solution: \n\r" + instance.GetCurrentSolutionAsString());
+        System.out.println("Objective Value: " + instance.GetObjectiveValue(instance.GetCurrentSolution()));
     }
 }
