@@ -114,7 +114,7 @@ public class Instance implements IInstance
         int counter = 0;
         for(boolean set : solution) if(set) counter++;
         if(!isSolutionFeasible(solution))
-            return (this.m + 1) + (this.m - counter);
+            return (this.m + 1) + (this.n - counter);
         else
             return counter;
     }
