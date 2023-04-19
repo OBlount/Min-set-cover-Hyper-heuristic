@@ -22,6 +22,7 @@ public class FitnessProportionateSelectionHeuristic extends GenericHeuristic imp
         this.upperBound = upperScore;
         this.defaultScore = (lowerScore + upperScore) / 2;
         this.rouletteWheel = new LinkedHashMap<>(10);
+        // Initialise all chosen heuristics here (dependant on config):
         for(EHeuristicIDs heuristicID : InstanceConfig.SET_OF_SEARCH_HEURISTICS)
         {
             switch (heuristicID)
@@ -45,6 +46,13 @@ public class FitnessProportionateSelectionHeuristic extends GenericHeuristic imp
         }
     }
 
+    /**
+     * Sets the instance's currently selected search operator to a heuristic found in the roulette wheel. The heuristic
+     * chosen is at random, but with a bias according to the heuristic's associated score. Please note that the hash map
+     * containing the roulette wheel data holds the literal heuristic instances (it houses the heuristics themselves and
+     * provides the hyper-heuristic operators directly from here).
+     * @param problem The problem instance.
+     */
     @Override
     public void ApplyHeuristic(Instance problem)
     {

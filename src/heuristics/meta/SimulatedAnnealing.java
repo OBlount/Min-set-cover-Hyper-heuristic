@@ -15,6 +15,14 @@ public class SimulatedAnnealing
         this.alpha = alphaDecay;
     }
 
+    /**
+     * A simulated annealing implementation which takes in two solutions, and returns an indicator to which one is
+     * overall accepted. It requires a p() probability function and indirectly advances the temperature variable.
+     * @param currentSolution The current solution objective value (most likely the backup solution score).
+     * @param candidateSolutionScore The new solution to be compared to (most likely the current solution).
+     * @return Returning true means that the candidate (new) solution is accepted. Returning false means the candidate
+     * solution should be rejected.
+     */
     public boolean PerformElaborateMoveAcceptance(int currentSolution, int candidateSolutionScore)
     {
         boolean isCandidateAccepted;

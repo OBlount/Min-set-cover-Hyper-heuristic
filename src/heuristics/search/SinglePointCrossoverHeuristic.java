@@ -27,9 +27,7 @@ public class SinglePointCrossoverHeuristic extends GenericHeuristic
         boolean[] resultingSolution = new boolean[problem.GetNumberOfVariables()];
         System.arraycopy(parent1, 0, resultingSolution, 0, parent1.length);
         System.arraycopy(parent2, 0, resultingSolution, parent1.length, parent2.length);
-        // Strict improvement:
-        if(problem.GetObjectiveValue(resultingSolution) < problem.GetObjectiveValue(problem.GetCurrentSolution()))
-            problem.SetCurrentSolution(resultingSolution);
+        problem.SetCurrentSolution(resultingSolution);
     }
 
     private boolean[] createRandomFeasibleSolution(Instance problem)

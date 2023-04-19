@@ -75,6 +75,10 @@ public class Instance implements IInstance
         return this.m;
     }
 
+    /**
+     * A direct method to bit flip the current solution given index.
+     * @param index Chosen index of the solution to bit flip.
+     */
     public void BitFlip(int index)
     {
         this.currentSolution[index] = !this.currentSolution[index];
@@ -160,6 +164,9 @@ public class Instance implements IInstance
         return this.currentlySelectedHeuristic;
     }
 
+    /**
+     * What the instance should perform every iteration.
+     */
     public void Solve()
     {
         this.iteratedLocalSearchHeuristic.ApplyHeuristic(this);

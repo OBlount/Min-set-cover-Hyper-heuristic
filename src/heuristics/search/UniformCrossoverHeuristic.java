@@ -26,9 +26,7 @@ public class UniformCrossoverHeuristic extends GenericHeuristic
             else
                 resultingSolution[i] = parent2[i];
         }
-        // Strict improvement:
-        if(problem.GetObjectiveValue(resultingSolution) < problem.GetObjectiveValue(problem.GetCurrentSolution()))
-            problem.SetCurrentSolution(resultingSolution);
+        problem.SetCurrentSolution(resultingSolution);
     }
 
     private boolean[] createRandomFeasibleSolution(Instance problem)
