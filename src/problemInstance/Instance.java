@@ -6,6 +6,7 @@ import heuristics.meta.FitnessProportionateSelectionHeuristic;
 import heuristics.meta.ReinforcementLearningILSHeuristic;
 import heuristics.meta.SimulatedAnnealing;
 
+import java.io.IOException;
 import java.util.*;
 
 public class Instance implements IInstance
@@ -23,12 +24,13 @@ public class Instance implements IInstance
     private GenericHeuristic currentlySelectedHeuristic;
     private final ReinforcementLearningILSHeuristic iteratedLocalSearchHeuristic;
     private final SimulatedAnnealing moveAcceptance;
+    private final InstanceFileWriter fileWriter;
 
     public Instance(String name, long seed,
                     double iom, double dos,
                     int lowerScore, int upperScore,
-                    double cost, double alphaDecay)
-    {
+                    double cost, double alphaDecay,
+                    int trialNumber) throws IOException {
         this.rnd = new Random(seed);
         this.instanceName = name;
         InstanceReader reader = new InstanceReader(this.instanceName);
@@ -48,6 +50,7 @@ public class Instance implements IInstance
         this.moveAcceptance =
                 new SimulatedAnnealing(this.rnd, GetObjectiveValue(this.currentSolution),
                         cost, alphaDecay);
+        this.fileWriter = new InstanceFileWriter(InstanceConfig.INSTANCE_OUTPUT_FILE_NAME + "." + trialNumber);
     }
 
     public String GetName()
@@ -174,9 +177,12 @@ public class Instance implements IInstance
     /**
      * What the instance should perform every iteration.
      */
-    public void Solve()
+    public void Solve(long iterationNumber)
     {
         this.iteratedLocalSearchHeuristic.ApplyHeuristic(this);
+        this.fileWriter.WriteIteration(iterationNumber,
+                GetObjectiveValue(this.bestSolution),
+                GetObjectiveValue(this.currentSolution));
     }
 
     public void SetCurrentSolution(boolean[] solution)
@@ -192,5 +198,15 @@ public class Instance implements IInstance
     public SimulatedAnnealing GetMoveAcceptance()
     {
         return this.moveAcceptance;
+    }
+
+    public void CleanUp()
+    {
+        try
+        {
+            this.fileWriter.CloseFile();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 }

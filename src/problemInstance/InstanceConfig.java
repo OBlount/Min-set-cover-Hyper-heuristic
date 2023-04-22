@@ -2,8 +2,9 @@ package problemInstance;
 
 public class InstanceConfig
 {
-    // Instance data file name (omit file extension):
+    // Instance data file names (omit file extension):
     public static final String INSTANCE_FILE_NAME = "d1_50_500";
+    public static final String INSTANCE_OUTPUT_FILE_NAME = "output";
     public static final long[] SEED_POOL = {
             24042023,
             19042023,

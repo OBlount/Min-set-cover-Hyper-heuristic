@@ -25,8 +25,9 @@ public interface IInstance
     void SetCurrentlySelectedHeuristic(GenericHeuristic heuristic);
     FitnessProportionateSelectionHeuristic GetReinforcementLearningHeuristic();
     GenericHeuristic GetCurrentSelectedHeuristic();
-    void Solve();
+    void Solve(long iterationNumber);
     void SetCurrentSolution(boolean[] solution);
     void SetBestSolution(boolean[] solution);
     SimulatedAnnealing GetMoveAcceptance();
+    void CleanUp();
 }
