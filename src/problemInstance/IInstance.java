@@ -11,13 +11,14 @@ public interface IInstance
     String GetName();
     int GetUniverse();
     Vector<Vector<Integer>> GetListOfSubsets();
-    String GetCurrentSolutionAsString();
+    String GetSolutionAsString(boolean[] solution);
     int GetNumberOfVariables();
     void BitFlip(int index);
     void CreateSolution();
     int GetObjectiveValue(boolean[] solution);
     void ApplyMovementOperator();
     boolean[] GetCurrentSolution();
+    boolean[] GetBestSolution();
     void RevertCurrentSolution();
     void BackupSolution(boolean[] solution);
     boolean[] GetBackupSolution();
@@ -26,5 +27,6 @@ public interface IInstance
     GenericHeuristic GetCurrentSelectedHeuristic();
     void Solve();
     void SetCurrentSolution(boolean[] solution);
+    void SetBestSolution(boolean[] solution);
     SimulatedAnnealing GetMoveAcceptance();
 }

@@ -16,6 +16,7 @@ public class Instance implements IInstance
     private final int n;
     private final Vector<Vector<Integer>> listOfSubsets;
     private final boolean[] currentSolution;
+    private final boolean[] bestSolution;
     private final boolean[] backupSolution;
     private final GenericHeuristic initialisationHeuristic;
     private final FitnessProportionateSelectionHeuristic rouletteWheelSelection;
@@ -36,6 +37,7 @@ public class Instance implements IInstance
         listOfSubsets = new Vector<>(this.m);
         reader.PopulateSubsetVector(this.listOfSubsets);
         this.currentSolution = new boolean[this.m];
+        this.bestSolution = new boolean[this.m];
         this.backupSolution = new boolean[this.m];
         this.initialisationHeuristic = new RandomInitialisationHeuristic(this.rnd);
         CreateSolution();
@@ -63,9 +65,9 @@ public class Instance implements IInstance
         return this.listOfSubsets;
     }
 
-    public String GetCurrentSolutionAsString()
+    public String GetSolutionAsString(boolean[] solution)
     {
-        return Arrays.toString(this.currentSolution)
+        return Arrays.toString(solution)
                 .replace("true", "1")
                 .replace("false", "0");
     }
@@ -133,6 +135,11 @@ public class Instance implements IInstance
         return this.currentSolution;
     }
 
+    public boolean[] GetBestSolution()
+    {
+        return this.bestSolution;
+    }
+
     public void BackupSolution(boolean[] solution)
     {
         System.arraycopy(solution, 0, this.backupSolution, 0, solution.length);
@@ -175,6 +182,11 @@ public class Instance implements IInstance
     public void SetCurrentSolution(boolean[] solution)
     {
         System.arraycopy(solution, 0, this.currentSolution, 0, solution.length);
+    }
+
+    public void SetBestSolution(boolean[] solution)
+    {
+        System.arraycopy(solution, 0, this.bestSolution, 0, solution.length);
     }
 
     public SimulatedAnnealing GetMoveAcceptance()

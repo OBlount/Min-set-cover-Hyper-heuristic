@@ -33,6 +33,11 @@ public class ReinforcementLearningILSHeuristic extends GenericHeuristic
             problem.GetReinforcementLearningHeuristic().DecrementHeuristicScore(problem.GetCurrentSelectedHeuristic());
             problem.RevertCurrentSolution();
         }
+        // Set best solution to current solution of better:
+        int currentSolutionObjectiveValue = problem.GetObjectiveValue(problem.GetCurrentSolution());
+        int bestSolutionObjectiveValue = problem.GetObjectiveValue(problem.GetBestSolution());
+        if(currentSolutionObjectiveValue <= bestSolutionObjectiveValue)
+            problem.SetBestSolution(problem.GetCurrentSolution());
     }
 
     @Override

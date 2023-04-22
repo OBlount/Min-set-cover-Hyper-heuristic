@@ -20,8 +20,8 @@ public class Main
                     InstanceConfig.MOVE_ACCEPTANCE_ALPHA_DECAY);
             runInstance(instance, InstanceConfig.RUN_TIME_IN_SECONDS);
             System.out.println("Trial #" + i + ":");
-            System.out.println("Best Solution: " + instance.GetCurrentSolutionAsString());
-            System.out.println("Objective Value: " + instance.GetObjectiveValue(instance.GetCurrentSolution()));
+            System.out.println("Best Solution: " + instance.GetSolutionAsString(instance.GetBestSolution()));
+            System.out.println("Objective Value: " + instance.GetObjectiveValue(instance.GetBestSolution()));
         }
     }
 
